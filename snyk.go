@@ -1,4 +1,4 @@
-package api
+package main
 
 import (
 	"encoding/json"
@@ -134,7 +134,7 @@ func makeHandler(fn func(http.ResponseWriter, *http.Request, string, string)) ht
 		m := validPath.FindStringSubmatch(r.URL.Path)
 
 		if m == nil {
-			http.NotFound(w, r)
+			writeBadge(w, "https://img.shields.io/badge/vulnerabilities-unknown-inactive")
 			return
 		}
 

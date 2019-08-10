@@ -133,7 +133,7 @@ func Handler(w http.ResponseWriter, r *http.Request) {
 	m := validPath.FindStringSubmatch(r.URL.Path)
 
 	if m == nil {
-		http.NotFound(w, r)
+		writeBadge(w, "https://img.shields.io/badge/vulnerabilities-unknown-inactive")
 		return
 	}
 
