@@ -1,6 +1,23 @@
 {
+  "version": 2,
+  "builds": [
+    {
+      "src": "api/*.go",
+      "use": "@now/go"
+    }
+  ],
   "env": {
     "SNYK_API_KEY": "@api-key",
     "SNYK_ORG_ID": "@org-id"
-  }
+  },
+  "public": false,
+  "regions": [
+    "bom1"
+  ],
+  "routes": [
+    {
+      "src": "/.*",
+      "dest": "api/snyk-serverless.go"
+    }
+  ]
 }

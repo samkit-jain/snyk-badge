@@ -5,7 +5,6 @@ import (
 	"fmt"
 	"io"
 	"io/ioutil"
-	"log"
 	"net/http"
 	"os"
 	"regexp"
@@ -128,22 +127,14 @@ func writeBadge(w http.ResponseWriter, badgeUrl string) {
 
 var validPath = regexp.MustCompile("^/badge/([a-zA-Z0-9-]+)/([a-zA-Z0-9-]+)/$")
 
-func makeHandler(fn func(http.ResponseWriter, *http.Request, string, string)) http.HandlerFunc {
-	return func(w http.ResponseWriter, r *http.Request) {
-		// Path validation
-		m := validPath.FindStringSubmatch(r.URL.Path)
+func Handler(w http.ResponseWriter, r *http.Request) {
+	// Path validation
+	m := validPath.FindStringSubmatch(r.URL.Path)
 
-		if m == nil {
-			http.NotFound(w, r)
-			return
-		}
-
-		fn(w, r, m[1], m[2])
+	if m == nil {
+		http.NotFound(w, r)
+		return
 	}
-}
 
-func main() {
-	http.HandleFunc("/badge/", makeHandler(badgeHandler))
-
-	log.Fatal(http.ListenAndServe(":8080", nil))
+	badgeHandler(w, r, m[1], m[2])
 }

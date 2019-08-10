@@ -15,8 +15,10 @@ As of August 2019, [Snyk](https://snyk.io/) badges currently only work for publi
     SNYK_ORG_ID="Your Snyk Organisation ID"
     SNYK_API_KEY="Your Snyk API key"
     ```
-4. Run `go build api/snyk.go && ./snyk`
+4. Run `go build snyk.go && ./snyk`
 5. Visit http://localhost:8080/badge/{username}/{repo_name}/ (Replace `{username}` and `{repo_name}` with your own GitHub username and the private repository you have access to, respectively)
+
+**Note:** Directory `api/` is for serverless deployment on now.sh
 
 ## How it works
 Hits the [List All Projects](https://snyk.docs.apiary.io/#reference/projects/all-projects/list-all-projects) API and gets a list of all the projects in your organisation. Searches for the repo you mentioned in the URL and counts the number of issues in it. If the number of issues is 0, gives a green badge. If more than 0, gives a red badge with the total number of issues as the value. If access unavailable gives a grey badge.
