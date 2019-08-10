@@ -55,7 +55,7 @@ func badgeHandler(w http.ResponseWriter, r *http.Request, username string, repo 
 	for _, project := range projects {
 		project := project.(map[string]interface{})
 
-		if strings.HasPrefix(project["name"].(string), username+"/"+repo) {
+		if strings.HasPrefix(project["name"].(string), username+"/"+repo+":") {
 			issues := project["issueCountsBySeverity"].(map[string]interface{})
 			highCount := int(issues["high"].(float64))
 			mediumCount := int(issues["medium"].(float64))
