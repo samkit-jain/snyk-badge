@@ -18,6 +18,8 @@ As of August 2019, [Snyk](https://snyk.io/) badges currently only work for publi
 4. Run `go build snyk.go && ./snyk`
 5. Visit http://localhost:8080/badge/{username}/{repo_name}/ (Replace `{username}` and `{repo_name}` with your own GitHub username and the private repository you have access to, respectively)
 
+**Note:** Trailing `/` is mandatory.
+
 **Note:** Directory `api/` is for serverless deployment on now.sh
 
 ## How it works
