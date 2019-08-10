@@ -1,0 +1,6 @@
+{
+  "env": {
+    "SNYK_API_KEY": "@api-key",
+    "SNYK_ORG_ID": "@org-id"
+  }
+}
