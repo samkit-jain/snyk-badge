@@ -17,15 +17,15 @@ import (
 // username/repo and return a badge if access.
 func badgeHandler(w http.ResponseWriter, r *http.Request, username string, repo string) {
 	// Default shields.io badge URL
-	badgeUrl := "https://img.shields.io/badge/vulnerabilities-unknown-inactive"
+	badgeURL := "https://img.shields.io/badge/vulnerabilities-unknown-inactive"
 
 	client := &http.Client{}
 
 	// Generate the Snyk API URL
-	apiUrl := fmt.Sprintf("https://snyk.io/api/v1/org/%s/projects", os.Getenv("SNYK_ORG_ID"))
+	apiURL := fmt.Sprintf("https://snyk.io/api/v1/org/%s/projects", os.Getenv("SNYK_ORG_ID"))
 
 	// Setup the GET request
-	req, _ := http.NewRequest("GET", apiUrl, nil)
+	req, _ := http.NewRequest("GET", apiURL, nil)
 
 	// Setup the headers
 	req.Header.Add("Content-Type", "application/json")
@@ -38,7 +38,7 @@ func badgeHandler(w http.ResponseWriter, r *http.Request, username string, repo 
 	// Likely network issues
 	if err != nil {
 		log.Println("Errored when sending request to the Snyk server")
-		writeBadge(w, badgeUrl)
+		writeBadge(w, badgeURL)
 		return
 	}
 
@@ -50,7 +50,7 @@ func badgeHandler(w http.ResponseWriter, r *http.Request, username string, repo 
 	// Likely the creds are wrong
 	if resp.StatusCode != 200 {
 		log.Println("Did not receive a 200 OK response from the Snyk server")
-		writeBadge(w, badgeUrl)
+		writeBadge(w, badgeURL)
 		return
 	}
 
@@ -59,7 +59,7 @@ func badgeHandler(w http.ResponseWriter, r *http.Request, username string, repo 
 	err = json.Unmarshal([]byte(string(respBody)), &data)
 
 	if err != nil {
-		writeBadge(w, badgeUrl)
+		writeBadge(w, badgeURL)
 		return
 	}
 
@@ -80,35 +80,35 @@ func badgeHandler(w http.ResponseWriter, r *http.Request, username string, repo 
 
 			if totalIssues == 0 {
 				// No vulnerabilities
-				badgeUrl = "https://img.shields.io/badge/vulnerabilities-0-brightgreen"
+				badgeURL = "https://img.shields.io/badge/vulnerabilities-0-brightgreen"
 			} else {
 				// Vulnerabilities found
-				badgeUrl = fmt.Sprintf("https://img.shields.io/badge/vulnerabilities-%d-red", totalIssues)
+				badgeURL = fmt.Sprintf("https://img.shields.io/badge/vulnerabilities-%d-red", totalIssues)
 			}
 
 			break
 		}
 	}
 
-	writeBadge(w, badgeUrl)
+	writeBadge(w, badgeURL)
 	return
 }
 
 // Return the badge image from the shields.io URL
-func writeBadge(w http.ResponseWriter, badgeUrl string) {
+func writeBadge(w http.ResponseWriter, badgeURL string) {
 	// Set the response header
 	w.Header().Set("Content-Type", "image/svg+xml;charset=utf-8")
 
 	client := &http.Client{}
 
-	req, _ := http.NewRequest("GET", badgeUrl, nil)
+	req, _ := http.NewRequest("GET", badgeURL, nil)
 	resp, err := client.Do(req)
 
 	// Could not perform the request
 	// Likely network issues
 	if err != nil {
 		log.Println("Errored when sending request to the Shields server")
-		fmt.Fprintf(w, badgeUrl)
+		fmt.Fprintf(w, badgeURL)
 		return
 	}
 
@@ -118,7 +118,7 @@ func writeBadge(w http.ResponseWriter, badgeUrl string) {
 	// Likely the service is down
 	if resp.StatusCode != 200 {
 		log.Println("Did not receive a 200 OK response from the Shields server")
-		fmt.Fprintf(w, badgeUrl)
+		fmt.Fprintf(w, badgeURL)
 		return
 	}
 

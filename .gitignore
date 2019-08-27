@@ -13,3 +13,6 @@
 
 # Intellij
 .idea
+
+# now.sh
+.now/

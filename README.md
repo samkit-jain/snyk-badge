@@ -1,5 +1,5 @@
 # snyk-badge 
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT) [![Codacy Badge](https://api.codacy.com/project/badge/Grade/b20a73f8110e4b0488a03518d0c86291)](https://www.codacy.com/app/samkit-jain/snyk-badge?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=samkit-jain/snyk-badge&amp;utm_campaign=Badge_Grade)
 
 Snyk badge generator for private GitHub repositories.
 
