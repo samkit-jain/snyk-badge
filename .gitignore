@@ -14,5 +14,5 @@
 # Intellij
 .idea
 
-# now.sh
-.now/
+# snyk binary
+snyk
