@@ -1,4 +1,4 @@
-# snyk-badge 
+# snyk-badge-azure
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 Snyk badge generator for private GitHub repositories.
